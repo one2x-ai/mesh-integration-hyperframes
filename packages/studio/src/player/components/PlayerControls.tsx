@@ -55,7 +55,11 @@ export const PlayerControls = memo(function PlayerControls({
 }: PlayerControlsProps) {
   // Subscribe to only the fields we render — each selector prevents cascading re-renders
   const isPlaying = usePlayerStore((s) => s.isPlaying);
-  const duration = usePlayerStore((s) => s.duration);
+  const duration = usePlayerStore((s) => {
+    if (s.elements.length === 0) return s.duration;
+    const maxEnd = Math.max(...s.elements.map((el) => el.start + el.duration));
+    return Math.max(s.duration, maxEnd);
+  });
   const timelineReady = usePlayerStore((s) => s.timelineReady);
   const playbackRate = usePlayerStore((s) => s.playbackRate);
   const audioMuted = usePlayerStore((s) => s.audioMuted);

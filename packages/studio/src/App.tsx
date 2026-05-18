@@ -84,10 +84,6 @@ export function StudioApp() {
         : 0;
     return Math.max(timelineDuration, maxEnd);
   }, [timelineDuration, timelineElements]);
-  useEffect(() => {
-    if (effectiveTimelineDuration !== usePlayerStore.getState().duration)
-      usePlayerStore.getState().setDuration(effectiveTimelineDuration);
-  }, [effectiveTimelineDuration]);
   const refreshPreviewDocumentVersion = useCallback(() => {
     setPreviewDocumentVersion((v) => v + 1);
     window.setTimeout(() => setPreviewDocumentVersion((v) => v + 1), 80);
