@@ -150,15 +150,18 @@ export async function addBlockToProject(
       const left = visualPosition ? Math.round(visualPosition.left) : 0;
       const top = visualPosition ? Math.round(visualPosition.top) : 0;
 
-      const subCompHtml =
-        `<div data-composition-id="${compId}" ` +
-        `data-composition-src="${compositionFile}" ` +
-        `data-start="${formatTimelineAttributeNumber(start)}" ` +
-        `data-duration="${formatTimelineAttributeNumber(duration)}" ` +
-        `data-track-index="${track}" ` +
-        `data-width="${width}" data-height="${height}" ` +
-        `style="position: absolute; left: ${left}px; top: ${top}px; width: ${width}px; height: ${height}px; z-index: ${zIndex}">` +
-        `</div>`;
+      const subCompHtml = [
+        `<div`,
+        `  data-composition-id="${compId}"`,
+        `  data-composition-src="${compositionFile}"`,
+        `  data-start="${formatTimelineAttributeNumber(start)}"`,
+        `  data-duration="${formatTimelineAttributeNumber(duration)}"`,
+        `  data-track-index="${track}"`,
+        `  data-width="${width}"`,
+        `  data-height="${height}"`,
+        `  style="position: absolute; left: ${left}px; top: ${top}px; width: ${width}px; height: ${height}px; z-index: ${zIndex}"`,
+        `></div>`,
+      ].join("\n");
 
       const patchedContent = insertTimelineAssetIntoSource(originalContent, subCompHtml);
 
